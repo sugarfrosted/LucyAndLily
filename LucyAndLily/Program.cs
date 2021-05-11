@@ -13,12 +13,8 @@ namespace LucyAndLily
         static void Main(string[] args)
         {
             Console.WriteLine((Expr.Parse("sin(2/3*pi)") * Expr.Parse("sin(2/3*pi)")).TrigonometricSimplify()); // trigsimplify
-            var kmaginary = Expr.I;
-            Expr complexExpProd = Expr.Parse("-exp(sqrt(-1)*2*pi)*exp(4)");
-            Console.WriteLine(complexExpProd.ExponentialSimplify().ToString());
-            Console.WriteLine(complexExpProd.ExponentialContract().ToString());
-            Console.WriteLine(complexExpProd.ExponentialExpand().ToString());
-            Console.WriteLine(new TrigPair("pi","1/2").SquareNorm());
+            var x = SymbolicExpression.Variable("x");
+            Console.WriteLine((x + 1).Substitute(x, Expr.Parse("10")));
             Console.ReadKey();
         }
     }

@@ -48,10 +48,6 @@ namespace LucyAndLily
             this.Imag = Expr.Zero;
         }
 
-        public bool IsZero()
-        {
-            return this.Real == Expr.Zero && this.Imag == Expr.Zero;
-        }
 
         public void Substitute(Expr x, Expr replacement)
         {
@@ -59,29 +55,32 @@ namespace LucyAndLily
             this.Imag.Substitute(x, replacement);
         }
 
-        public TrigPair NegativeCong()
-        {
-            return new TrigPair(-Real, Imag);
-        }
-
         // We assume that the variables match between each side
-        public FloatingPoint SquareNorm()
+        public double SquareNorm()
         {
             Expr symbolicSquareNorm = Real.Pow(2) + Imag.Pow(2);
-            return symbolicSquareNorm.Evaluate(new Dictionary<string, FloatingPoint>());
+            return symbolicSquareNorm.Evaluate(new Dictionary<string, FloatingPoint>()).RealValue;
         }
 
-        public (FloatingPoint, FloatingPoint) GetNumeric()
+        /// <summary>
+        /// Gets the numeric representation of the point. 
+        /// </summary>
+        /// <returns></returns>
+        public (double, double) GetNumeric()
         {
             var dict = new Dictionary<string, FloatingPoint>();
-            return (this.Real.Evaluate(dict),
-                this.Imag.Evaluate(dict));
+            return (this.Real.Evaluate(dict).RealValue,
+                this.Imag.Evaluate(dict).RealValue);
+        }
+        public bool IsZero()
+        {
+            return this.Real.ToString() == "0" && this.Imag.ToString() == "0";
         }
 
         public static TrigPair operator +(TrigPair a, TrigPair b) => new TrigPair(a.Real + b.Real, a.Imag + b.Imag);
         public static TrigPair operator *(TrigPair a, TrigPair b) => new TrigPair(a.Real * b.Real, a.Imag * b.Imag);
         public static TrigPair operator -(TrigPair a, TrigPair b) => new TrigPair(a.Real - b.Real, a.Imag - b.Imag);
-        public static TrigPair operator -(TrigPair a) => new TrigPair(Expr.Zero - a.Real, Expr.Zero - a.Imag);
+        public static TrigPair operator -(TrigPair a) => new TrigPair(-a.Real, -a.Imag);
         public static bool operator ==(TrigPair a, TrigPair b) => (a - b).IsZero();
         public static bool operator !=(TrigPair a, TrigPair b) => !(a == b);
     }
