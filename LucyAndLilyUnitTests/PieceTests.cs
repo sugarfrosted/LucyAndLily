@@ -48,5 +48,11 @@ namespace LucyAndLily.Tests
 
             Assert.AreEqual(piece.SquareDistance, 16.0);
         }
+
+        [TestMethod]
+        public void FlipFactorTest()
+        {
+
+        }
     }
 }

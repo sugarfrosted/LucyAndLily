@@ -15,7 +15,8 @@ namespace LucyAndLily
             Console.WriteLine((Expr.Parse("sin(2/3*pi)") * Expr.Parse("sin(2/3*pi)")).TrigonometricSimplify()); // trigsimplify
             var x = SymbolicExpression.Variable("x");
             Console.WriteLine((x + 1).Substitute(x, Expr.Parse("10")));
-            Console.ReadKey();
+            Console.WriteLine(Expr.Parse("sin(2/3*pi)").ToString().GetHashCode());
+            Console.WriteLine(Expr.Parse("sin(2/3*pi)").ToString().GetHashCode());
         }
     }
 }

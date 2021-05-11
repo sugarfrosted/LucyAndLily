@@ -77,11 +77,47 @@ namespace LucyAndLily
             return this.Real.ToString() == "0" && this.Imag.ToString() == "0";
         }
 
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            //       
+            // See the full list of guidelines at
+            //   http://go.microsoft.com/fwlink/?LinkID=85237  
+            // and also the guidance for operator== at
+            //   http://go.microsoft.com/fwlink/?LinkId=85238
+            //
+
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            // TODO: write your implementation of Equals() here
+            //throw new NotImplementedException();
+            if (obj.GetType() == typeof(TrigPair))
+            {
+                return (this - (obj as TrigPair)).IsZero();
+            }
+
+            // Unused
+            return base.Equals(obj);
+        }
+
+        // override object.GetHashCode
+        /// <summary>
+        /// Do not trust this. Lol.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return (this.Real.ToString(), this.Imag.ToString()).GetHashCode();
+        }
+
         public static TrigPair operator +(TrigPair a, TrigPair b) => new TrigPair(a.Real + b.Real, a.Imag + b.Imag);
         public static TrigPair operator *(TrigPair a, TrigPair b) => new TrigPair(a.Real * b.Real, a.Imag * b.Imag);
         public static TrigPair operator -(TrigPair a, TrigPair b) => new TrigPair(a.Real - b.Real, a.Imag - b.Imag);
         public static TrigPair operator -(TrigPair a) => new TrigPair(-a.Real, -a.Imag);
-        public static bool operator ==(TrigPair a, TrigPair b) => (a - b).IsZero();
-        public static bool operator !=(TrigPair a, TrigPair b) => !(a == b);
+        public static bool operator ==(TrigPair a, TrigPair b) => a.Equals(b);
+        public static bool operator !=(TrigPair a, TrigPair b) => !a.Equals(b);
     }
 }
