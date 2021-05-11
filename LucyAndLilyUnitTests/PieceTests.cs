@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MathNet.Symbolics;
 
 namespace LucyAndLily.Tests
 {
@@ -37,14 +38,19 @@ namespace LucyAndLily.Tests
         [TestMethod()]
         public void FlipTest()
         {
-            Assert.Fail();
+            var piece = new Piece(5, 1);
+
+            piece.Flip(1);
+
+            Assert.AreEqual(piece, new Piece(1, 2));
         }
+
 
         [TestMethod()]
         public void SquareDistanceTest()
         {
             var location = new TrigPair("2^(1/2)", "14^(1/2)");
-            Piece piece = new Piece(location, 5, 2, (0, 0));
+            var piece = new Piece(location, 5, 2, (0, 0));
 
             Assert.AreEqual(piece.SquareDistance, 16.0);
         }
@@ -52,7 +58,9 @@ namespace LucyAndLily.Tests
         [TestMethod]
         public void FlipFactorTest()
         {
-
+            var piece = Piece.FlipFactorExpression(1, 2, 3);
+            var pi = SymbolicExpression.Pi;
+            Assert.AreEqual(piece, new TrigPair(-4 * (pi / 3).Cos(), SymbolicExpression.Zero));
         }
 
         [TestMethod]

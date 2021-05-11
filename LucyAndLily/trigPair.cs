@@ -119,5 +119,10 @@ namespace LucyAndLily
         public static TrigPair operator -(TrigPair a) => new TrigPair(-a.Real, -a.Imag);
         public static bool operator ==(TrigPair a, TrigPair b) => a.Equals(b);
         public static bool operator !=(TrigPair a, TrigPair b) => !a.Equals(b);
+
+        public override string ToString()
+        {
+            return (this.Real, this.Imag).ToString();
+        }
     }
 }

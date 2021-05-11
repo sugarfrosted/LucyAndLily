@@ -14,7 +14,7 @@ namespace LucyAndLily
         public TrigPair Location
         {
             get { return _location; }
-            set
+            private set
             {
                 _location = value;
             } 
@@ -48,7 +48,7 @@ namespace LucyAndLily
 
         public (int, int) Orientation
         {
-            get; set;
+            get; private set;
         }
 
         public double SquareDistance
@@ -143,6 +143,13 @@ namespace LucyAndLily
                 }
             }
             return null;
+        }
+
+        public override string ToString()
+        {
+
+            return String.Format("Piece - Location: {0}, Order: {1}, Root: {2}, Orientation: {3}", this.Location.ToString(), this.Order, this.Root, this.Orientation);
+
         }
     }
 }
