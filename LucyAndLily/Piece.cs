@@ -88,42 +88,61 @@ namespace LucyAndLily
                 return;
             }
 
-            var flipFactor = FlipFactor();
-
-            Expr nSubOrder = Expr.Parse(this.Order.ToString());
-            flipFactor.Substitute(Expr.Variable("N"), nSubOrder);
-
             int d = direction + Orientation.Item2;
-            Expr dSubDirection = Expr.Parse(d.ToString());
-            flipFactor.Substitute(Expr.Variable("d"), dSubDirection);
 
-            var sSubSign = Orientation.Item1 != 1 ? Expr.Parse("1") : Expr.Parse("-1");
-            flipFactor.Substitute(Expr.Variable("s"), sSubSign);
-
-            this.Location += flipFactor;
+            this.Location += FlipFactorExpression(d,
+                (Orientation.Item1 != 1) ? 1 : -1,
+                this.Order);
 
             this.Orientation = (1 - this.Orientation.Item1,
                 (-2 * d - 1 + this.Orientation.Item2+3*this.Order) % this.Order);
         } 
 
         /// <summary>
-        /// The factor we need to flip the shape. 
+        /// The factor we use to change a shape's coordinates.
         /// </summary>
-        /// <returns>A trig pair with the following variables:
-        ///     "s": the sign
-        ///     "d": the direction flipped
-        ///     "N": the order of the shape
-        /// </returns>
-        internal static TrigPair FlipFactor()
+        /// <param name="d">Usually based on the direction of rotation.</param>
+        /// <param name="s">Usually the sign in the cosine.</param>
+        /// <param name="N">Usually represents to order of the peice.</param>
+        /// <returns></returns>
+        internal static TrigPair FlipFactorExpression(Expr d, Expr s, Expr N) // The factor we need to flip the shape.
         {
-            Expr d = Expr.Variable("d");
-            Expr s = Expr.Variable("s");
-            Expr N = Expr.Variable("N");
             Expr pi = Expr.Pi;
             Expr real = 2 * (2 * pi * d / N + pi / N).Cos() * (pi / N).Cos() * s; // Expr.Parse("2*cos(2*pi*d/N+pi/N)*cos(pi/N)*s");
             Expr imag = 2 * (2 * pi * d / N + pi / N).Sin() * (pi / N).Cos(); // Expr.Parse("2*sin(2*pi*d/N+pi/N)*cos(pi/N)");
 
             return new TrigPair(real, imag);
+        }
+
+        /// <summary>
+        /// Calculated the inverse of the element given the base.
+        /// </summary>
+        /// <param name="order"></param>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public static int? InverseRoot(int order, int root)
+        {
+            if (order <= 1)
+            {
+                throw new Exception("Invalid size.");
+            }
+            if (root == 1)
+            {
+                return 1;
+            }
+            if (root == 0 || order % root == 0)
+            {
+                return null;
+            }
+
+            for (var i = 1; i < order; i ++)
+            {
+                if(i * root % order == 1)
+                {
+                    return i;
+                }
+            }
+            return null;
         }
     }
 }

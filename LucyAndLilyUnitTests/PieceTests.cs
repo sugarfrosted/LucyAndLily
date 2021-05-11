@@ -54,5 +54,34 @@ namespace LucyAndLily.Tests
         {
 
         }
+
+        [TestMethod]
+        [TestCategory("Inverse function test.")]
+        public void UnitInversionTest()
+        {
+            // Test all for 5;
+            Assert.AreEqual(Piece.InverseRoot(5, 1), 1, "In Z5 1 has an inverse of 1.");
+            Assert.AreEqual(Piece.InverseRoot(5, 2), 3, "In Z5 2 has an inverse of 3.");
+            Assert.AreEqual(Piece.InverseRoot(5, 3), 2, "In Z5 3 has an inverse of 2.");
+            Assert.AreEqual(Piece.InverseRoot(5, 4), 4, "In Z5 4 has an inverse of 4.");
+            Assert.AreEqual(Piece.InverseRoot(6, 1), 1, "In Z6 1 has an inverse of 1.");
+            Assert.AreEqual(Piece.InverseRoot(6, 5), 5, "In Z6 1 has an inverse of 1.");
+            Assert.AreEqual(Piece.InverseRoot(100,99), 99, "In Z6 1 has an inverse of 1.");
+        }
+
+        [TestMethod]
+        [TestCategory("Inverse function test.")]
+        public void NonUnitInversionTest()
+        {
+            Assert.AreEqual(Piece.InverseRoot(5, 0), null, "In Z5 0 has no inverse.");
+            Assert.AreEqual(Piece.InverseRoot(6, 2), null, "In Z6 2 is not a unit.");
+            Assert.AreEqual(Piece.InverseRoot(6, 3), null, "In Z6 2 is not a unit.");
+            Assert.AreEqual(Piece.InverseRoot(15, 5), null, "In Z15 5 is not a unit.");
+            Assert.AreEqual(Piece.InverseRoot(15, 3), null, "In Z15 3 is not a unit.");
+
+            Assert.ThrowsException<Exception>(() => Piece.InverseRoot(1,99));
+            Assert.ThrowsException<Exception>(() => Piece.InverseRoot(-1,99));
+            Assert.ThrowsException<Exception>(() => Piece.InverseRoot(0,99));
+        }
     }
 }
