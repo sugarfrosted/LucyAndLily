@@ -8,7 +8,7 @@ using Expr = MathNet.Symbolics.SymbolicExpression;
 
 namespace LucyAndLily
 {
-    class Piece
+    public class Piece
     {
         private TrigPair _location;
         public TrigPair Location
@@ -80,7 +80,7 @@ namespace LucyAndLily
         /// Performs the action of flipping in the plane.
         /// </summary>
         /// <param name="direction"></param>
-        public void Flip(int direction) //state
+        public void Flip(int direction) //switch to use vars, then unit test generation!
         {
             // If the direction isn't valid do nothing (might make this an exception)
             if (direction < 0 || direction > this.Order)
@@ -91,14 +91,14 @@ namespace LucyAndLily
             var flipFactor = FlipFactor();
 
             Expr nSubOrder = Expr.Parse(this.Order.ToString());
-            flipFactor.Substitute(Expr.Parse("N"), nSubOrder);
+            flipFactor.Substitute(Expr.Variable("N"), nSubOrder);
 
             int d = direction + Orientation.Item2;
             Expr dSubDirection = Expr.Parse(d.ToString());
-            flipFactor.Substitute(Expr.Parse("d"), dSubDirection);
+            flipFactor.Substitute(Expr.Variable("d"), dSubDirection);
 
             var sSubSign = Orientation.Item1 != 1 ? Expr.Parse("1") : Expr.Parse("-1");
-            flipFactor.Substitute(Expr.Parse("s"), sSubSign);
+            flipFactor.Substitute(Expr.Variable("s"), sSubSign);
 
             this.Location += flipFactor;
 
@@ -114,10 +114,15 @@ namespace LucyAndLily
         ///     "d": the direction flipped
         ///     "N": the order of the shape
         /// </returns>
-        private static TrigPair FlipFactor()
+        internal static TrigPair FlipFactor()
         {
-            Expr real = Expr.Parse("2*cos(2*pi*d/N+pi/N)*cos(pi/N)*s");
-            Expr imag = Expr.Parse("2*sin(2*pi*d/N+pi/N)*cos(pi/N)");
+            Expr d = Expr.Variable("d");
+            Expr s = Expr.Variable("s");
+            Expr N = Expr.Variable("N");
+            Expr pi = Expr.Pi;
+            Expr real = 2 * (2 * pi * d / N + pi / N).Cos() * (pi / N).Cos() * s; // Expr.Parse("2*cos(2*pi*d/N+pi/N)*cos(pi/N)*s");
+            Expr imag = 2 * (2 * pi * d / N + pi / N).Sin() * (pi / N).Cos(); // Expr.Parse("2*sin(2*pi*d/N+pi/N)*cos(pi/N)");
+
             return new TrigPair(real, imag);
         }
     }

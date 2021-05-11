@@ -9,7 +9,7 @@ using Expr = MathNet.Symbolics.SymbolicExpression;
 
 namespace LucyAndLily
 {
-    class TrigPair // lazy implemenation just to make notion easy
+    public class TrigPair // lazy implemenation just to make notion easy
     {
         #region Properties
         private Expr _real;
