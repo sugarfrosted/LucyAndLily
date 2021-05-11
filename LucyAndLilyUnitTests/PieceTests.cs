@@ -39,5 +39,14 @@ namespace LucyAndLily.Tests
         {
             Assert.Fail();
         }
+
+        [TestMethod()]
+        public void SquareDistanceTest()
+        {
+            var location = new TrigPair("2^(1/2)", "14^(1/2)");
+            Piece piece = new Piece(location, 5, 2, (0, 0));
+
+            Assert.AreEqual(piece.SquareDistance, 16.0);
+        }
     }
 }

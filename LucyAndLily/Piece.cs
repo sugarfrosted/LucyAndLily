@@ -51,7 +51,7 @@ namespace LucyAndLily
             get; set;
         }
 
-        public FloatingPoint Distance
+        public double SquareDistance
         {
             get
             {
