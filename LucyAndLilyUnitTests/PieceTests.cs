@@ -39,12 +39,14 @@ namespace LucyAndLily.Tests
         public void FlipTest()
         {
             var piece = new Piece(5, 1);
+            Piece expected;
 
             piece.Flip(1);
+            // <Piece - Location: (cos(2/5*π) + cos(4/5*π), sin(2/5*π) + sin(4/5*π)), Order: 5, Root: 1, Orientation: (1, 2)>.
+            expected = new Piece(new TrigPair("cos(2/5*π) + cos(4/5*π)", "sin(2/5*π) + sin(4/5*π)"), 5, 1, (1, 2));
 
-            Assert.AreEqual(piece, new Piece(1, 2));
+            Assert.AreEqual(expected, piece);
         }
-
 
         [TestMethod()]
         public void SquareDistanceTest()
@@ -68,13 +70,13 @@ namespace LucyAndLily.Tests
         public void UnitInversionTest()
         {
             // Test all for 5;
-            Assert.AreEqual(Piece.InverseRoot(5, 1), 1, "In Z5 1 has an inverse of 1.");
-            Assert.AreEqual(Piece.InverseRoot(5, 2), 3, "In Z5 2 has an inverse of 3.");
-            Assert.AreEqual(Piece.InverseRoot(5, 3), 2, "In Z5 3 has an inverse of 2.");
-            Assert.AreEqual(Piece.InverseRoot(5, 4), 4, "In Z5 4 has an inverse of 4.");
-            Assert.AreEqual(Piece.InverseRoot(6, 1), 1, "In Z6 1 has an inverse of 1.");
-            Assert.AreEqual(Piece.InverseRoot(6, 5), 5, "In Z6 1 has an inverse of 1.");
-            Assert.AreEqual(Piece.InverseRoot(100,99), 99, "In Z6 1 has an inverse of 1.");
+            Assert.AreEqual(1, Piece.InverseRoot(5, 1), "In Z5 1 has an inverse of 1.");
+            Assert.AreEqual(3, Piece.InverseRoot(5, 2), "In Z5 2 has an inverse of 3.");
+            Assert.AreEqual(2, Piece.InverseRoot(5, 3), "In Z5 3 has an inverse of 2.");
+            Assert.AreEqual(4, Piece.InverseRoot(5, 4), "In Z5 4 has an inverse of 4.");
+            Assert.AreEqual(1, Piece.InverseRoot(6, 1), "In Z6 1 has an inverse of 1.");
+            Assert.AreEqual(5, Piece.InverseRoot(6, 5), "In Z6 1 has an inverse of 1.");
+            Assert.AreEqual(99, Piece.InverseRoot(100,99), "In Z6 1 has an inverse of 1.");
         }
 
         [TestMethod]
