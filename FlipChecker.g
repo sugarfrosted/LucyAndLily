@@ -1,7 +1,7 @@
 Read("./FlipImplementation.gi");
 
-LLTestUnflip := function()
-	local direction, piece,result;
+LLTestUnflip := function(assert)
+	local direction, piece, result, success;
 	# test flipping in and out
 	direction := 1;
 	piece := rec(
@@ -11,17 +11,43 @@ LLTestUnflip := function()
 		orient2:=0);
 	result := LucyAndLilyFlip(1,piece);
 	result := LucyAndLilyFlip(1,result);
-	if result <> piece then
-		Print("Flip not undone.\n");
-		Print("Expected: "); Print(piece); Print("\n");
-		Print("Actual: "); Print(result); Print("\n");
+
+	success := assert.AreEqual(piece,result,
+			"Flipping over same edge should fix shape");
+	if not success then
 		return false;
 	fi;
+	
+	return true;
 end;
 
-RunTestBattery := function()
-	if not LLTestUnflip() then
-		return;
+LLRunTestBattery := function()
+	local assert;
+	assert:= LLSetupTests();
+
+	if not LLTestUnflip(assert) then
+		return false;
 	fi;
-	return;
+	return true;
 end;
+
+LLSetupTests := function()
+	local assert;
+	assert := rec();
+	assert.AreEqual:= function (expected, actual, text)
+		if expected <> actual then
+			Print("Equality Failed: "); Print(text); Print("\n"); 
+			Print("Expected: "); Print(expected); Print("\n");
+			Print("Actual: "); Print(actual); Print("\n");
+			return false;
+		fi;
+		return true;
+	end;
+
+	return assert;
+end;
+
+
+
+
+

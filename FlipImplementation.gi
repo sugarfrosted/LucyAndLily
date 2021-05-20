@@ -1,7 +1,10 @@
-# Depends on: https://github.com/gap-packages/float
+# Loads the dependencies:
+LoadPackage("Float");
+SetFloats(MPC);
+
 LucyAndLilyFlip := function(direction, piece) #location, order, root, orient1, orient2)
 	local d, sign, buildShift, 
-	newOrient1, newOrient2, newLocation,
+	newOrient1, newOrient2, newLocation, locationFloat,
 	output;
 
 	d := direction + piece.orient2; # Assume direction is scrubbed for now. 
@@ -23,10 +26,17 @@ LucyAndLilyFlip := function(direction, piece) #location, order, root, orient1, o
 	newLocation := piece.location + buildShift(d, piece.order, sign);
 	newOrient1 := 1 - piece.orient1;
 	newOrient2 := (-2 * d - 1 + piece.orient2 + 3*piece.order) mod piece.order;
-	#location, order, root, orient1, orient2
+
+	locationFloat := Float(piece.location);
 	output := rec(location:= newLocation,
 		   		  order := piece.order,
 		   		  orient1:= newOrient1,
-				  orient2:= newOrient2);
+				  orient2:= newOrient2
+				#,
+				#  real:= RealPart(locationFloat),
+				#  imaginary:= ImaginaryPart(locationFloat),
+				#  norm:= Norm(locationFloat)
+			 	 );
+
 	return output;
 end;
