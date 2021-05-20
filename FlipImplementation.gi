@@ -2,7 +2,7 @@
 LoadPackage("Float");
 SetFloats(MPC);
 
-LucyAndLilyFlip := function(direction, piece) #location, order, root, orient1, orient2)
+LucyAndLilyFlip := function(direction, piece) # piece = rec(location, order, root, orient1, orient2)
 	local d, sign, buildShift, 
 	newOrient1, newOrient2, newLocation, locationFloat,
 	output;
