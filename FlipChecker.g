@@ -48,7 +48,7 @@ LLSetupTests := function()
 
 	assert.RecordsMatch := function(expected, actual, keys)
 		# if key is empty call are equal?
-		local outFunc;
+		local outFunc, key;
 
 		outFunc := function(expected, actual, key)
 			Print("Records not similar on key \""); Print(key); Print("\": "); Print("\n"); 
