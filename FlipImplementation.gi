@@ -32,11 +32,11 @@ LucyAndLilyFlip := function(direction, piece) # piece = rec(location, order, roo
 	newOrientation[1] := 1 - piece.orientation[1];
 	newOrientation[2] := (-2 * d - 1 + piece.orientation[2] + 3*piece.order) mod piece.order;
 
-	locationFloat := Float(piece.location);
+	locationFloat := Float(newLocation);
 	output := rec(location:= newLocation,
 		   		  order := piece.order,
 		   		  orientation:= newOrientation,
-				  coordinates = rec(
+				  coordinates := rec(
 					  real:= RealPart(locationFloat),
 					  imag:= ImaginaryPart(locationFloat)
 					 ),
