@@ -3,14 +3,13 @@ Read("./FlipImplementation.gi");
 LLTestUnflip := function(assert)
 	local direction, piece, result, success, comparables;
 	
-	comparables := Immutable(["location", "order", "orient1", "orient2"]);
+	comparables := Immutable(["location", "order", "orientation"]);
 	# test flipping in and out
 	direction := 1;
 	piece := rec(
 		location:= 0,
 		order:= 5,
-		orient1:=0,
-		orient2:=0);
+		orientation:=[0,0]);
 	result := LucyAndLilyFlip(1,piece);
 	result := LucyAndLilyFlip(1,result);
 

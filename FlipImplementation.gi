@@ -2,14 +2,14 @@
 LoadPackage("Float");
 SetFloats(MPC);
 
-LucyAndLilyFlip := function(direction, piece) # piece = rec(location, order, root, orient1, orient2)
+LucyAndLilyFlip := function(direction, piece) # piece = rec(location, order, root, orientation:= [a,b])
 	local d, sign, buildShiftSummand, 
-	newOrient1, newOrient2, newLocation, locationFloat,
+	newOrientation, newLocation, locationFloat,
 	output;
 
-	d := direction + piece.orient2; # Assume direction is scrubbed for now. 
+	d := direction + piece.orientation[2]; # Assume direction is scrubbed for now. 
 
-	if piece.orient1 = 1 then
+	if piece.orientation[1] = 1 then
 		sign := -1;
 	else
 		sign := 1;
@@ -28,16 +28,18 @@ LucyAndLilyFlip := function(direction, piece) # piece = rec(location, order, roo
 	# assigned;
 
 	newLocation := piece.location + buildShiftSummand(d, piece.order, sign);
-	newOrient1 := 1 - piece.orient1;
-	newOrient2 := (-2 * d - 1 + piece.orient2 + 3*piece.order) mod piece.order;
+	newOrientation := [];
+	newOrientation[1] := 1 - piece.orientation[1];
+	newOrientation[2] := (-2 * d - 1 + piece.orientation[2] + 3*piece.order) mod piece.order;
 
 	locationFloat := Float(piece.location);
 	output := rec(location:= newLocation,
 		   		  order := piece.order,
-		   		  orient1:= newOrient1,
-				  orient2:= newOrient2,
-				  real:= RealPart(locationFloat),
-				  imaginary:= ImaginaryPart(locationFloat),
+		   		  orientation:= newOrientation,
+				  coordinates = rec(
+					  real:= RealPart(locationFloat),
+					  imag:= ImaginaryPart(locationFloat)
+					 ),
 				  norm:= Norm(locationFloat)
 			 	 );
 
