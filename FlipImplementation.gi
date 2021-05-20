@@ -9,7 +9,11 @@ LucyAndLilyFlip := function(direction, piece) #location, order, root, orient1, o
 
 	d := direction + piece.orient2; # Assume direction is scrubbed for now. 
 
-	sign := 1 - piece.orient1;
+	if piece.orient1 = 1 then
+		sign := -1;
+	else
+		sign := 1;
+	fi;
 
 	buildShift := 
 		function(d, N, s)
@@ -31,11 +35,10 @@ LucyAndLilyFlip := function(direction, piece) #location, order, root, orient1, o
 	output := rec(location:= newLocation,
 		   		  order := piece.order,
 		   		  orient1:= newOrient1,
-				  orient2:= newOrient2
-				#,
-				#  real:= RealPart(locationFloat),
-				#  imaginary:= ImaginaryPart(locationFloat),
-				#  norm:= Norm(locationFloat)
+				  orient2:= newOrient2,
+				  real:= RealPart(locationFloat),
+				  imaginary:= ImaginaryPart(locationFloat),
+				  norm:= Norm(locationFloat)
 			 	 );
 
 	return output;
