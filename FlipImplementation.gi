@@ -1,5 +1,7 @@
 LucyAndLilyFlip := function(direction, location, order, root, orient1, orient2)
-	local d, sign, build, newLocation;
+	local d, sign, build, 
+	newOrient1, newOrient2, newLocation,
+	output;
 
 	d := direction + orient2; # Assume direction is scrubbed for now. 
 
@@ -18,7 +20,12 @@ LucyAndLilyFlip := function(direction, location, order, root, orient1, orient2)
 	# assigned;
 
 	newLocation := build(d, order, sign);
-	return newLocation;
+	newOrient1 := 1 - orient1;
+	newOrient2 := (-2 * d - 1 + orient2 + 3*order) mod order;
+	output := rec(location:= newLocation,
+		   		  orient1:= newOrient1,
+				  orient2:= newOrient2);
+	return output;
 end;
 
 #LucyAndLilyBuild := function(d, N, s)
