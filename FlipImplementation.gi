@@ -1,3 +1,4 @@
+# Depends on: https://github.com/gap-packages/float
 LucyAndLilyFlip := function(direction, piece) #location, order, root, orient1, orient2)
 	local d, sign, buildShift, 
 	newOrient1, newOrient2, newLocation,
@@ -29,12 +30,3 @@ LucyAndLilyFlip := function(direction, piece) #location, order, root, orient1, o
 				  orient2:= newOrient2);
 	return output;
 end;
-
-#LucyAndLilyBuild := function(d, N, s)
-#	local product := E(2*N)^(2*d+1);
-#	if s = -1 then
-#		product := -product^-1;
-#	fi;
-#	product := product * (E(2*N) + E(2*N)^-1);
-#	return product;
-#end;
