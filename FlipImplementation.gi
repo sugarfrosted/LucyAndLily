@@ -3,7 +3,7 @@ LoadPackage("Float");
 SetFloats(MPC);
 
 LucyAndLilyFlip := function(direction, piece) # piece = rec(location, order, root, orient1, orient2)
-	local d, sign, buildShift, 
+	local d, sign, buildShiftSummand, 
 	newOrient1, newOrient2, newLocation, locationFloat,
 	output;
 
@@ -15,7 +15,7 @@ LucyAndLilyFlip := function(direction, piece) # piece = rec(location, order, roo
 		sign := 1;
 	fi;
 
-	buildShift := 
+	buildShiftSummand := 
 		function(d, N, s)
 			local product;
 			product := E(2*N)^(2*d+1);
@@ -27,7 +27,7 @@ LucyAndLilyFlip := function(direction, piece) # piece = rec(location, order, roo
 		end;
 	# assigned;
 
-	newLocation := piece.location + buildShift(d, piece.order, sign);
+	newLocation := piece.location + buildShiftSummand(d, piece.order, sign);
 	newOrient1 := 1 - piece.orient1;
 	newOrient2 := (-2 * d - 1 + piece.orient2 + 3*piece.order) mod piece.order;
 
