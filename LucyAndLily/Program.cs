@@ -12,11 +12,12 @@ namespace LucyAndLily
     {
         static void Main(string[] args)
         {
-            Console.WriteLine((Expr.Parse("sin(2/3*pi)") * Expr.Parse("sin(2/3*pi)")).TrigonometricSimplify()); // trigsimplify
-            var x = SymbolicExpression.Variable("x");
-            Console.WriteLine((x + 1).Substitute(x, Expr.Parse("10")));
-            Console.WriteLine(Expr.Parse("sin(2/3*pi)").ToString().GetHashCode());
-            Console.WriteLine(Expr.Parse("sin(2/3*pi)").ToString().GetHashCode());
+            var ass = Expr.Parse("cos(2 / 5 * pi) + cos(4 / 5 * pi) - cos(6 / 5 * pi) - cos(8 / 5 * pi)");
+            Console.WriteLine(ass.TrigonometricContract());
+            Console.WriteLine(ass.TrigonometricExpand());
+            Console.WriteLine(ass.TrigonometricSimplify());
+            Console.WriteLine(ass.Evaluate(new Dictionary<string, FloatingPoint>()));
+            Console.WriteLine(ass.RationalReduce());
         }
     }
 }

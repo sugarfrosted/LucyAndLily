@@ -18,7 +18,7 @@ namespace LucyAndLily
             get { return _real; }
             set
             {
-                _real = value.TrigonometricSimplify();
+                _real = value.TrigonometricContract().TrigonometricExpand().TrigonometricSimplify();
             }
         }
 
@@ -28,7 +28,7 @@ namespace LucyAndLily
             get { return _imag; }
             set
             {
-                _imag = value.TrigonometricSimplify();
+                _imag = value.TrigonometricContract().TrigonometricExpand().TrigonometricSimplify();
             }
         }
         #endregion
