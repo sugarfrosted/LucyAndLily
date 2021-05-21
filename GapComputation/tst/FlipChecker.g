@@ -1,4 +1,4 @@
-Read("./FlipImplementation.gi");
+Read("../lib/FlipImplementation.gi");
 
 LLTestUnflip := function(assert)
 	local direction, piece, result, success, comparables;
