@@ -363,3 +363,13 @@ MigrationBackup/
 FodyWeavers.xsd
 /.upgrade-assistant
 /log.txt
+
+#texThings
+*.fls
+*.fdb_latexmk
+*.log
+*.pdf
+*.aux
+
+#vim
+*.sw[p-z]

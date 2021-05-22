@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+This is the derivation!
+\begin{align}
+\begin{pmatrix}
+2\cos\left(\frac{\pi}{N}\right) \\
+2\cos\left(\frac{\pi}{N}\right)
+\end{pmatrix}
+\times
+\begin{pmatrix}
+\pm 1 \\
+1
+\end{pmatrix}
+\times
+\begin{pmatrix}
+\cos\left(\pi\textstyle\frac{2d+1}{N}\right) \\
+\sin\left(\pi\textstyle\frac{2d+1}{N}\right) \\
+\end{pmatrix} \label{eq:Principal}
+\end{align}
+Writing the last term as a complex number 
+\begin{align}
+\cos\left(\pi\frac{2d+1}{N}\right) + 
+i\sin\left(\pi\frac{2d+1}{N}\right)
+&= e^{i\pi\frac{2d+1}{N}}\nonumber\\
+&=e^{i2\pi\frac{2d+1}{2N}}\nonumber\\
+&=\zeta_{2N}^{2d + 1} && \text{By definition}
+\end{align}
+Note that negating the first coordination is the same as taking the conjugate then inverting and since this number has unit magnitude conjugation is the same as inverting it, thus
+\begin{align}
+\begin{pmatrix}
+\pm 1 \\
+1
+\end{pmatrix}
+\times
+\begin{pmatrix}
+\cos(\pi(2d+1)/N) \\
+\sin(\pi(2d+1)/N)
+\end{pmatrix}
+&= 
+\begin{pmatrix}
+\pm 1 \\
+1
+\end{pmatrix}
+\times
+\zeta_{2N}^{2d + 1} && \text{By definition}\nonumber \\
+&= \pm\zeta_{2N}^{\pm (2d + 1)} \label{eq:NegConjugation}
+\end{align}
+Note that multiplying the real and imaginary part by the same number so combining () with ()
+\begin{align}
+2\cos\left(\frac{\pi}{N}\right)\cdot\left(\pm\zeta_{2N}^{\pm (2d + 1)}\right)
+\end{align}
+\begin{align}
+2\cos\left(\frac{\pi}{N}\right) &= 2\left(\frac{e^{2i\frac{\pi}{2N}} + \left(e^{2i\frac{\pi}{2N}}\right)^{-1}}{2}\right) \nonumber
+\\ &=\zeta_{2N} + \zeta_{2N}^{-1} \label{eq:CycloCosine}
+\end{align}
+Using \eqref{eq:CycloCosine} and \eqref{eq:NegConjugation} we can rewrite \eqref{eq:Principal} as 
+\begin{align}
+\left(\zeta_{2N} + \zeta_{2N}^{-1}\right)\cdot\left(\pm\zeta_{2N}^{\pm (2d + 1)}\right)
+\end{align}
+
+
+\end{document}
