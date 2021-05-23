@@ -35,8 +35,8 @@ Note that negating the first coordination is the same as taking the conjugate th
 	\end{pmatrix}
 	\times
 	\begin{pmatrix}
-		\cos(\pi(2d+1)/N) \\
-		\sin(\pi(2d+1)/N)
+		\cos\left(\pi\textstyle\frac{2d+1}{N}\right) \\
+		\sin\left(\pi\textstyle\frac{2d+1}{N}\right)
 	\end{pmatrix}
 	&= 
 	\begin{pmatrix}
@@ -53,7 +53,7 @@ Note that multiplying the real and imaginary part by a real number with that val
 	2\cos\left(\frac{\pi}{N}\right)\cdot\left(\pm\zeta_{2N}^{\pm (2d + 1)}\right)
 	\label{eq:MultiplicationTerm}
 \end{align}
-We expand the first factor as follows:
+We expand the first factor using the exponential definition of cosine.
 \begin{align}
 	2\cos\left(\frac{\pi}{N}\right) &= 2\left(\frac{e^{2i\pi\frac{1}{2N}} + \left(e^{2i\pi\frac{1}{2N}}\right)^{-1}}{2}\right) \nonumber
 	\\ &=\zeta_{2N} + \zeta_{2N}^{-1} \label{eq:CycloCosine}
